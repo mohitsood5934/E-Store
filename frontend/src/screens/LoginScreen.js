@@ -10,23 +10,23 @@ const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const redirect = location.search ? location.search.split("=")[1] : "/login";
+  const redirect = location.search ? location.search.split("=")[1] : "/";
+
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    dispatch(login(email, password));
+  };
 
   useEffect(() => {
     if (userInfo) {
       history.push(redirect);
     }
   }, [userInfo, history, redirect]);
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(login(email, password));
-    history.push("/profile");
-  };
 
   return (
     <>
@@ -59,9 +59,7 @@ const LoginScreen = ({ location, history }) => {
       <Row className="py-3">
         <Col>
           New Customer?
-          <Link to={redirect ? `/register/?redirect=${redirect}` : "/register"}>
-            Register here
-          </Link>
+          <Link to="/signup">Register here</Link>
         </Col>
       </Row>
     </>

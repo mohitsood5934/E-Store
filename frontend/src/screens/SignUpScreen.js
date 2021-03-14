@@ -9,23 +9,18 @@ import { signup } from "../actions/userActions";
 const SignUpScreen = ({ location, history }) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [mobileNumber, setMobileNumber] = useState();
   const [password, setPassword] = useState("");
 
-  const redirect = location.search ? location.search.split("=")[1] : "/login";
   const dispatch = useDispatch();
 
   const userSignUp = useSelector((state) => state.userSignUp);
   const { loading, error, userInfo } = userSignUp;
 
-  useEffect(() => {
-    if (userInfo) {
-      history.push(redirect);
-    }
-  }, [userInfo, history, redirect]);
-
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(signup(name, email, password));
+    dispatch(signup(name, email, mobileNumber, password))
+    history.push('/');
   };
 
   return (
@@ -52,6 +47,15 @@ const SignUpScreen = ({ location, history }) => {
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
+        <Form.Group controlId="mobileNumber">
+          <Form.Label>Mobile Number</Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="Enter Mobile Number"
+            value={mobileNumber}
+            onChange={(e) => setMobileNumber(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
         <Form.Group controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -68,9 +72,7 @@ const SignUpScreen = ({ location, history }) => {
       <Row className="py-3">
         <Col>
           Already have an account?
-          <Link to={redirect ? `/login/?redirect=${redirect}` : "/login"}>
-            Login
-          </Link>
+          <Link to="/login">Login</Link>
         </Col>
       </Row>
     </>

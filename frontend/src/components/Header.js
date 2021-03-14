@@ -47,6 +47,19 @@ const Header = () => {
                   </Nav.Link>
                 </LinkContainer>
               )}
+              {userInfo && userInfo.user.isAdmin && (
+                <>
+                  <LinkContainer to="/admin/userlist">
+                    <Nav.Link>Users</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/admin/productlist">
+                    <Nav.Link>Products</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/admin/orderlist">
+                    <Nav.Link>Orders</Nav.Link>
+                  </LinkContainer>
+                </>
+              )}
               {userInfo && (
                 <>
                   <LinkContainer to="/profile">
