@@ -24,7 +24,6 @@ exports.verifyUser = (req, res, next) => {
 
 exports.adminMiddleware = async (req, res, next) => {
   const userId = req.user._id;
-  console.log(userId, "id---");
   try {
     const user = await User.findById({ _id: userId }, { _id: 0, isAdmin: 1 })
       .lean()
@@ -273,10 +272,10 @@ exports.updateUser = async (req, res) => {
     const { name, email, mobileNumber ,isAdmin} = req.body;
     const user = await User.findByIdAndUpdate(
       { _id: id},
-      { $set: { name: name, email: email, mobileNumber: mobileNumber,isAdmin:isAdmin } }
+      { $set: { name: name, email: email, mobileNumber: mobileNumber,isAdmin:isAdmin } },
+      {new:true}
     );
-console.log(user,"updated count---")
-    if (user.nMatched.count > 0) {
+    if (user) {
       return res.status(200).json({
         status: "success",
         message: "User updated successfully",
