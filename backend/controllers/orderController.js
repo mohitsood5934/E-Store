@@ -1,5 +1,5 @@
 const Order = require("../models/orderModel");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 exports.createOrder = async (req, res) => {
   const {
@@ -103,8 +103,6 @@ exports.updateOrderToPaid = async (req, res) => {
 };
 
 exports.fetchMyOrders = async (req, res) => {
-  console.log("i am here------------------------------")
-  console.log("ddd",req.user._id)
   const userId = req.user._id;
   try {
     const orders = await Order.find({ user: mongoose.Types.ObjectId(userId) })
@@ -122,6 +120,55 @@ exports.fetchMyOrders = async (req, res) => {
   } catch (error) {
     console.log(
       `Error occurred while fetching orders of the user with user id - ${userId} ${error}`
+        .red
+    );
+    return res.status(500).json({ status: "failed", message: error.message });
+  }
+};
+
+exports.fetchAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({})
+      .populate("user", "name email mobileNumber")
+      .lean()
+      .exec();
+    return res.status(200).json({ status: "success", orders });
+  } catch (error) {
+    console.log(`Error occurred while fetching all orders - ${error}`.red);
+    return res.status(500).json({ status: "failed", message: error.message });
+  }
+};
+
+exports.updateOrderToDelivered = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const updatedOrder = await Order.findByIdAndUpdate(
+      { _id: id },
+      {
+        $set: {
+          isDelivered: true,
+          deliveredAt: Date.now(),
+        },
+      },
+      {
+        new: true,
+      }
+    )
+      .populate("user", "name email mobileNumber")
+      .lean()
+      .exec();
+    if (updatedOrder) {
+      return res.status(200).json({ status: "success", updatedOrder });
+    } else {
+      return res.status(400).json({
+        status: "failed",
+        error: "No order found with given order id ",
+      });
+    }
+  } catch (error) {
+    console.log(
+      `Error occurred while updating order to delivered having order id - ${id} ${error}`
         .red
     );
     return res.status(500).json({ status: "failed", message: error.message });

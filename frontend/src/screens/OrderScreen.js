@@ -6,9 +6,16 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import CheckOut from "../components/CheckOut";
-import { fetchOrderById, payOrder } from "../actions/orderActions";
+import {
+  fetchOrderById,
+  payOrder,
+  deliverOrder,
+} from "../actions/orderActions";
 import Loader from "../components/Loader";
-import {ORDER_PAY_RESET} from '../constants/orderConstants';
+import {
+  ORDER_PAY_RESET,
+  ORDER_DELIVER_RESET,
+} from "../constants/orderConstants";
 
 const OrderScreen = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -18,6 +25,12 @@ const OrderScreen = ({ history, match }) => {
 
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
+
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const [sdkReady, setSdkReady] = useState(false);
 
@@ -39,8 +52,9 @@ const OrderScreen = ({ history, match }) => {
       document.body.appendChild(script);
     };
 
-    if (!orderInfo || successPay) {
-      dispatch({type:ORDER_PAY_RESET});
+    if (!orderInfo || successPay || successDeliver) {
+      dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(fetchOrderById(match.params.id));
     } else if (!orderInfo.isPaid) {
       if (!window.paypal) {
@@ -49,11 +63,15 @@ const OrderScreen = ({ history, match }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, match, orderInfo, successPay]);
+  }, [dispatch, match, orderInfo, successPay, successDeliver]);
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
     dispatch(payOrder(match.params.id, paymentResult));
+  };
+
+  const deliverOrderHandler = (id) => {
+    dispatch(deliverOrder(match.params.id));
   };
 
   return loading ? (
@@ -191,6 +209,20 @@ const OrderScreen = ({ history, match }) => {
                   )}
                 </ListGroup.Item>
               )}
+              {userInfo &&
+                userInfo.user &&
+                userInfo.user.isAdmin &&
+                orderInfo.isPaid &&
+                !orderInfo.isDelivered && (
+                  <ListGroup.Item>
+                    <Button
+                      className="btn btn-block"
+                      onClick={deliverOrderHandler}
+                    >
+                      Mark Delivered
+                    </Button>
+                  </ListGroup.Item>
+                )}
             </ListGroup>
           </Card>
         </Col>

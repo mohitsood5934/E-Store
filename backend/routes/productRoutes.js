@@ -12,7 +12,7 @@ const {
 const {verifyUser,adminMiddleware} = require("../controllers/userController");
 
 router.get("/", findAllProducts);
-router.post("/", verifyUser,adminMiddleware,createProduct);
+router.post("/create", verifyUser,adminMiddleware,createProduct);
 router.get("/:id", findProductById);
 router.put("/:id",verifyUser,adminMiddleware, updateProduct);
 router.delete("/:id",verifyUser,adminMiddleware, deleteProduct);

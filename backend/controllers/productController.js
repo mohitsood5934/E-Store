@@ -66,7 +66,7 @@ exports.createProduct = async (req, res) => {
   try {
     const createdProduct = await product.save();
     return res.status(201).json({
-      status: success,
+      status: 'success',
       createdProduct,
     });
   } catch (error) {
