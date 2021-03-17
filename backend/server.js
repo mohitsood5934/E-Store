@@ -1,7 +1,10 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const path = require("path");
 const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const fs = require("fs");
+const path = require("path");
+const helmet = require("helmet");
 const colors = require("colors");
 const connectDB = require("./config/db");
 
@@ -21,7 +24,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+
+var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
+  flags: "a",
+});
+
+app.use(morgan("combined", { stream: accessLogStream }));
+
 app.use(cors());
+app.use(helmet());
+
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);

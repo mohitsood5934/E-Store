@@ -1,0 +1,2 @@
+::1 - - [17/Mar/2021:13:31:07 +0000] "OPTIONS /api/users HTTP/1.1" 204 0 "http://localhost:3000/admin/userlist" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"
+::1 - - [17/Mar/2021:13:31:07 +0000] "GET /api/users HTTP/1.1" 304 - "http://localhost:3000/admin/userlist" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"
