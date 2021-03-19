@@ -2,8 +2,19 @@ const colors = require("colors");
 const Product = require("../models/productModel");
 
 exports.findAllProducts = async (req, res) => {
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+
   try {
-    const products = await Product.find({}).lean().exec();
+    const products = await Product.find({ ...keyword })
+      .lean()
+      .exec();
 
     res.status(200).json({ status: "success", products });
   } catch (error) {
@@ -66,7 +77,7 @@ exports.createProduct = async (req, res) => {
   try {
     const createdProduct = await product.save();
     return res.status(201).json({
-      status: 'success',
+      status: "success",
       createdProduct,
     });
   } catch (error) {
@@ -119,6 +130,81 @@ exports.updateProduct = async (req, res) => {
     }
   } catch (error) {
     console.log(`Error occurred while creating the product ${error}`.red);
+    res.status(500).json({ status: "failed", message: error.message });
+  }
+};
+
+exports.createProductReview = async (req, res) => {
+  const productId = req.params.id;
+  const { rating, comment } = req.body;
+
+  try {
+    const product = await Product.findById({ _id: productId }).lean().exec();
+
+    if (product) {
+      const alreadyReviewed = product.reviews.find((r) => {
+        return r.user.toString() === req.user._id.toString();
+      });
+      if (alreadyReviewed) {
+        return res.status(400).json({
+          status: "failed",
+          message: "Product already reviewed",
+        });
+      }
+      const review = {
+        name: req.user.name,
+        rating: Number(rating),
+        comment,
+        user: req.user._id,
+      };
+
+      const totalRating =
+        product.reviews.reduce((acc, item) => {
+          return acc + item.rating;
+        }, rating) /
+          product.reviews.length +
+        1;
+
+      await Product.findByIdAndUpdate(
+        {
+          _id: productId,
+        },
+        {
+          $push: {
+            reviews: review,
+          },
+        },
+        {
+          $inc: { numReview: 1, rating: totalRating },
+        }
+      );
+      return res.status(201).json({
+        status: "success",
+        message: "Review added",
+      });
+    } else {
+      return res.status(400).json({
+        status: "failed",
+        error: "Product not found",
+      });
+    }
+  } catch (error) {
+    console.log(
+      `Error occurred while creating the product review ${error}`.red
+    );
+    res.status(500).json({ status: "failed", message: error.message });
+  }
+};
+
+exports.getTopProducts = async (req, res) => {
+  try {
+    const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+    return res.status(200).json({
+      status: "success",
+      products,
+    });
+  } catch (error) {
+    console.log(`Error occurred while fetching top products ${error}`.red);
     res.status(500).json({ status: "failed", message: error.message });
   }
 };
