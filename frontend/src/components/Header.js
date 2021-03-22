@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import SearchBox from "./SearchBox";
 import { logout } from "../actions/userActions";
 
@@ -13,6 +13,15 @@ const Header = () => {
 
   const dispatch = useDispatch();
   let history = useHistory();
+
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+  let totalItems = 0;
+  if (cartItems.length > 0) {
+    totalItems = cartItems.reduce((acc, item) => {
+      return acc + item.qty;
+    }, 0);
+  }
 
   const logOutHandler = async () => {
     await dispatch(logout());
@@ -24,7 +33,7 @@ const Header = () => {
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>Pro Shop</Navbar.Brand>
+            <Navbar.Brand>E Shop</Navbar.Brand>
           </LinkContainer>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -34,7 +43,7 @@ const Header = () => {
               <LinkContainer to="/cart">
                 <Nav.Link>
                   <i className="fas fa-shopping-cart mr-1" />
-                  Cart
+                  Cart {totalItems > 0 ? totalItems : "0"}
                 </Nav.Link>
               </LinkContainer>
               {!userInfo && (
@@ -50,26 +59,29 @@ const Header = () => {
                   </Nav.Link>
                 </LinkContainer>
               )}
-              {userInfo && userInfo.user && userInfo.user.isAdmin && (
-                <>
-                  <LinkContainer to="/admin/userlist">
-                    <Nav.Link>Users</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer to="/admin/productlist">
-                    <Nav.Link>Products</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer to="/admin/orderlist">
-                    <Nav.Link>Orders</Nav.Link>
-                  </LinkContainer>
-                </>
-              )}
-              {userInfo && (
-                <>
+              {userInfo && userInfo.user && (
+                <NavDropdown title={userInfo.user.isAdmin ? 'Admin' : 'userInfo.user.name'} id="basic-nav-dropdown">
                   <LinkContainer to="/profile">
-                    <Nav.Link>Profile</Nav.Link>
+                    <NavDropdown.Item>My Profile</NavDropdown.Item>
                   </LinkContainer>
-                  <Nav.Link onClick={logOutHandler}>Logout</Nav.Link>
-                </>
+
+                  {userInfo.user.isAdmin && (
+                    <>
+                      <LinkContainer to="/admin/userlist">
+                        <NavDropdown.Item>Users</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/orderlist">
+                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/productlist">
+                        <NavDropdown.Item>Products</NavDropdown.Item>
+                      </LinkContainer>
+                    </>
+                  )}
+                  <NavDropdown.Item onClick={logOutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>

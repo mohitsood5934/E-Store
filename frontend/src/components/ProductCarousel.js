@@ -19,7 +19,7 @@ const ProductCaraousel = () => {
     <>
       {loading && <Loader />}
       {error && <Message variant="danger">{error}</Message>}
-      {!loading && !error && topProducts &&  (
+      {!loading && !error && topProducts && (
         <Carousel pause="hover" className="bg-dark">
           {topProducts.map((product) => {
             return (
