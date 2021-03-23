@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,17 +21,25 @@ const LoginScreen = ({ location, history }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     dispatch(login(email, password));
+    localStorage.setItem('isLoggedIn',true);
   };
 
   useEffect(() => {
-    if (userInfo) {
+    if ( typeof(userInfo) !== 'undefined' && userInfo.hasOwnProperty('user')) {
       history.push(redirect);
     }
   }, [userInfo, history, redirect]);
 
   return (
     <>
-      <h1>Sign In </h1>
+     <Helmet>
+        <meta charSet="utf-8" />
+        <title>E-SHOP | Login</title>
+        <meta name="description" content="Login page for customers" />
+      </Helmet>
+    <div className="row">
+      <div className="offset-md-3 col-md-6">
+      <h1 style={{textAlign:'center'}}>Sign In </h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
@@ -62,6 +71,9 @@ const LoginScreen = ({ location, history }) => {
           <Link to="/signup">Register here</Link>
         </Col>
       </Row>
+      </div>
+    </div>
+     
     </>
   );
 };

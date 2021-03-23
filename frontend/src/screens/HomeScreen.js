@@ -23,7 +23,7 @@ const HomeScreen = ({ match }) => {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Welcome to EShop | Home</title>
+        <title>E-Shop | Home</title>
         <meta name="description" content="We sell best products" />
       </Helmet>
       {!keyword && <ProductCarousel />}

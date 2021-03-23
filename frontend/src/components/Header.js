@@ -33,7 +33,7 @@ const Header = () => {
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>E Shop</Navbar.Brand>
+            <Navbar.Brand>E-Shop</Navbar.Brand>
           </LinkContainer>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -46,12 +46,12 @@ const Header = () => {
                   Cart {totalItems > 0 ? totalItems : "0"}
                 </Nav.Link>
               </LinkContainer>
-              {!userInfo && (
+              {!localStorage.getItem('isLoggedIn') && (
                 <LinkContainer to="/signup">
                   <Nav.Link>Sign Up</Nav.Link>
                 </LinkContainer>
               )}
-              {!userInfo && (
+              {!localStorage.getItem('isLoggedIn') && (
                 <LinkContainer to="/login">
                   <Nav.Link>
                     <i className="fas fa-user mr-1" />
@@ -60,12 +60,19 @@ const Header = () => {
                 </LinkContainer>
               )}
               {userInfo && userInfo.user && (
-                <NavDropdown title={userInfo.user.isAdmin ? 'Admin' : 'userInfo.user.name'} id="basic-nav-dropdown">
+                <NavDropdown
+                  title={
+                    userInfo && userInfo.user && userInfo.user.isAdmin
+                      ? "Admin"
+                      : "User"
+                  }
+                  id="basic-nav-dropdown"
+                >
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>My Profile</NavDropdown.Item>
                   </LinkContainer>
 
-                  {userInfo.user.isAdmin && (
+                  {userInfo && userInfo.user && userInfo.user.isAdmin && (
                     <>
                       <LinkContainer to="/admin/userlist">
                         <NavDropdown.Item>Users</NavDropdown.Item>

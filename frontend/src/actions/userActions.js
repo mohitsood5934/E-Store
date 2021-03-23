@@ -58,6 +58,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: ORDER_LIST_MY_RESET });
   dispatch({ type: USER_LIST_RESET });
   dispatch({ type: CART_RESET });
+  localStorage.removeItem("isLoggedIn");
 };
 
 export const signup = (name, email, mobileNumber, password) => async (

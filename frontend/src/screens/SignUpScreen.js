@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +26,14 @@ const SignUpScreen = ({ location, history }) => {
 
   return (
     <>
-      <h1>Sign Up </h1>
+     <Helmet>
+        <meta charSet="utf-8" />
+        <title>E-SHOP | Sign Up</title>
+        <meta name="description" content="Sign Up  page for customers" />
+      </Helmet>
+    <div className="row">
+      <div className="col-md-6 offset-md-3">
+      <h1 style={{textAlign:'center'}}>Sign Up </h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
@@ -75,6 +83,9 @@ const SignUpScreen = ({ location, history }) => {
           <Link to="/login">Login</Link>
         </Col>
       </Row>
+      </div>
+    </div>
+     
     </>
   );
 };

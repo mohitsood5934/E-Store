@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { Form, Button, Row, Col, Table } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -39,7 +40,7 @@ const ProfileScreen = ({ location, history }) => {
       setEmail(userInfo && userInfo.user.email);
       setMobileNumber(userInfo && userInfo.user.mobileNumber);
     }
-  }, [history, userInfo]);
+  }, [history, userInfo,success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -50,6 +51,12 @@ const ProfileScreen = ({ location, history }) => {
   };
 
   return (
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>E-SHOP | Profile</title>
+        <meta name="description" content="User Profile" />
+      </Helmet>
     <Row>
       <Col md={3}>
         <h2>User Profile </h2>
@@ -64,6 +71,7 @@ const ProfileScreen = ({ location, history }) => {
               placeholder="Enter name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              disabled
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="email">
@@ -73,6 +81,7 @@ const ProfileScreen = ({ location, history }) => {
               placeholder="Enter email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="mobileNumber">
@@ -82,9 +91,10 @@ const ProfileScreen = ({ location, history }) => {
               placeholder="Enter Mobile Number"
               value={mobileNumber}
               onChange={(e) => setMobileNumber(e.target.value)}
+              disabled
             ></Form.Control>
           </Form.Group>
-          <Form.Group controlId="password">
+          {/* <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -95,7 +105,7 @@ const ProfileScreen = ({ location, history }) => {
           </Form.Group>
           <Button type="submit" variant="primary">
             Update
-          </Button>
+          </Button> */}
         </Form>
       </Col>
       <Col md={9}>
@@ -137,6 +147,7 @@ const ProfileScreen = ({ location, history }) => {
         )}
       </Col>
     </Row>
+    </>
   );
 };
 

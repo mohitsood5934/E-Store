@@ -80,7 +80,7 @@ const OrderScreen = ({ history, match }) => {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-      <h1>Order Details</h1>
+      <h1 style={{ textAlign: "center" }}>Order Details</h1>
 
       <Row>
         <Col md={8}>
