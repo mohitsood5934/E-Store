@@ -74,6 +74,11 @@ const OrderScreen = ({ history, match }) => {
     dispatch(deliverOrder(match.params.id));
   };
 
+  /* if user did not have sandbox paypal account,then for testing purpose we will make a payment 
+   from this function */
+  const fakePayHandler = () => {
+    dispatch(payOrder(match.params.id, {}));
+  };
   return loading ? (
     <Loader />
   ) : error ? (
@@ -202,10 +207,17 @@ const OrderScreen = ({ history, match }) => {
                   {!sdkReady ? (
                     <Loader />
                   ) : (
-                    <PayPalButton
-                      amount={orderInfo.totalPrice}
-                      onSuccess={successPaymentHandler}
-                    />
+                    <>
+                      <PayPalButton
+                        amount={orderInfo.totalPrice}
+                        onSuccess={successPaymentHandler}
+                      />
+                      <Button onClick={fakePayHandler}>Pay Directly </Button>
+                      <p>
+                        Note:Pay from here if you do not have paypal sandbox
+                        account
+                      </p>
+                    </>
                   )}
                 </ListGroup.Item>
               )}

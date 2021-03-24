@@ -71,10 +71,11 @@ exports.updateOrderToPaid = async (req, res) => {
           isPaid: true,
           paidAt: Date.now(),
           paymentResult: {
-            id: req.body.id,
-            status: req.body.status,
-            update_time: req.body.update_time,
-            email_address: req.body.payer.email_address,
+            id: req.body.id || "fake_id",
+            status: req.body.status || "fake_pay_success",
+            update_time: req.body.update_time || Date.now(),
+            email_address:
+              (req.body.payer && req.body.payer.email_address) || req.user._id,
           },
         },
       },

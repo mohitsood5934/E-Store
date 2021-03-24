@@ -33,12 +33,14 @@ exports.uploadImage = async (req, res) => {
       const type = await FileType.fromBuffer(buffer);
       const fileName = `bucketFolder/${Date.now().toString()}`;
       const data = await uploadFileToS3(buffer, fileName, type);
+      console.log(productId,"data.Location",data.Location)
       const updatedProduct = await Product.findByIdAndUpdate(
         { _id: productId },
         { $set: { image: data.Location } },
         { new: true }
       );
-      return res, status(200).json({ status: "success", updatedProduct });
+      console.log(updatedProduct,"up")
+      return res.status(200).json({ status: "success", updatedProduct });
     } catch (err) {
       return res.status(500).send(err);
     }

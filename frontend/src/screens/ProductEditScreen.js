@@ -21,7 +21,7 @@ const ProductEditScreen = ({ match, history }) => {
   const [uploading, setUploading] = useState(false);
 
   const [file, setFile] = useState(null);
-  
+  const [fileUploadSuccess, setFileUploadSuccess] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -75,6 +75,7 @@ const ProductEditScreen = ({ match, history }) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", file[0]);
+    setFileUploadSuccess(false);
     setUploading(true);
     try {
       const config = {
@@ -88,9 +89,10 @@ const ProductEditScreen = ({ match, history }) => {
         formData,
         config
       );
-      setImage(data);
+      console.log(data,"data!!!!")
+      setImage(data.updatedProduct.image);
       setUploading(false);
-      setImageUploadMessage('File uploaded successfully')
+      setFileUploadSuccess(true);
     } catch (error) {
       console.log(error, "Error occurred while uploading file!!");
       setUploading(false);
@@ -143,12 +145,17 @@ const ProductEditScreen = ({ match, history }) => {
               <Form.Group>
                 <Form.File
                   id="image-file"
-                  label="Upload an image for product"
+                  label="Change/Upload an image for product"
                   onChange={(e) => setFile(e.target.files)}
                 >
-                  {uploading && <Loader />}
                 </Form.File>
               </Form.Group>
+              {uploading && <Loader />}
+                  {fileUploadSuccess && (
+                    <Message variant="success">
+                      File uploaded successfully
+                    </Message>
+                  )}
               <button
                 type="submit"
                 className="btn btn-sm"

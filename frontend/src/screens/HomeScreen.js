@@ -27,7 +27,7 @@ const HomeScreen = ({ match }) => {
         <meta name="description" content="We sell best products" />
       </Helmet>
       {!keyword && <ProductCarousel />}
-      <h1>Latest Products</h1>
+      <h1 className="mt-4">Latest Products</h1>
       {loading ? (
         <Loader />
       ) : error ? (
