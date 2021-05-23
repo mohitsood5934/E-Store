@@ -6,6 +6,7 @@ const fs = require("fs");
 const path = require("path");
 const helmet = require("helmet");
 const colors = require("colors");
+const path = require('path');
 const connectDB = require("./backend/config/db");
 
 const productRoutes = require("./backend/routes/productRoutes");
@@ -46,12 +47,11 @@ const PORT = process.env.port || 5000;
 // ... other app.use middleware
 // ... other app.use middleware
 
-app.use(express.static(path.join(__dirname, "frontend", "build")));
-
-// ...
-// Right before your app.listen(), add this:
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+// Step 1:
+app.use(express.static(path.resolve(__dirname, "./frontend/build")));
+// Step 2:
+app.get("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "./frontend/build", "index.html"));
 });
 
 app.listen(PORT, () => {
