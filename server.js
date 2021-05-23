@@ -6,12 +6,12 @@ const fs = require("fs");
 const path = require("path");
 const helmet = require("helmet");
 const colors = require("colors");
-const connectDB = require("./config/db");
+const connectDB = require("./backend/config/db");
 
-const productRoutes = require("./routes/productRoutes");
-const userRoutes = require("./routes/userRoutes");
-const orderRoutes = require("./routes/orderRoutes");
-const uploadRoutes = require("./routes/uploadRoutes");
+const productRoutes = require("./backend/routes/productRoutes");
+const userRoutes = require("./backend/routes/userRoutes");
+const orderRoutes = require("./backend/routes/orderRoutes");
+const uploadRoutes = require("./backend/routes/uploadRoutes");
 
 dotenv.config();
 connectDB();

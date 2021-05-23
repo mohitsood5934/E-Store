@@ -4,8 +4,8 @@
   "description": "Ecommerce Project",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "heroku-postbuild": "cd frontend && npm install --only=dev && npm install && npm run build",
+    "start": "node server.js",
+    "heroku-postbuild": "ng build --prod",
     "server": "nodemon server",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -34,5 +34,8 @@
   "devDependencies": {
     "concurrently": "^6.0.0",
     "nodemon": "^2.0.7"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
