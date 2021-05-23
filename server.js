@@ -6,7 +6,6 @@ const fs = require("fs");
 const path = require("path");
 const helmet = require("helmet");
 const colors = require("colors");
-const path = require('path');
 const connectDB = require("./backend/config/db");
 
 const productRoutes = require("./backend/routes/productRoutes");
@@ -43,7 +42,7 @@ app.get("/api/config/paypal", (req, res) => {
 // app.use(express.static(__dirname,'userUploads'))
 // app.use("/userUploads", express.static(path.join(__dirname, "/userUploads")));
 
-const PORT = process.env.port || 5000;
+const PORT = process.env.PORT || 5000;
 // ... other app.use middleware
 // ... other app.use middleware
 
