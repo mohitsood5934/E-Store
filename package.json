@@ -4,9 +4,9 @@
   "description": "Ecommerce Project",
   "main": "server.js",
   "scripts": {
-    "start": "node backend/server",
+    "start": "node server",
     "heroku-postbuild": "cd frontend && npm install --only=dev && npm install && npm run build",
-    "server": "nodemon backend/server",
+    "server": "nodemon server",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backend/seeder",
