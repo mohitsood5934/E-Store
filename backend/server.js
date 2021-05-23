@@ -45,13 +45,6 @@ app.get("/api/config/paypal", (req, res) => {
 
 const PORT = process.env.port || 5000;
 // ... other app.use middleware 
-app.use(express.static(path.join(__dirname, "frontend", "build")))
-
-// ...
-// Right before your app.listen(), add this:
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
-});
 
 app.listen(PORT, () => {
   console.log(
