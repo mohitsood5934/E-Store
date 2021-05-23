@@ -44,6 +44,15 @@ app.get("/api/config/paypal", (req, res) => {
 // app.use("/userUploads", express.static(path.join(__dirname, "/userUploads")));
 
 const PORT = process.env.port || 5000;
+// ... other app.use middleware 
+app.use(express.static(path.join(__dirname, "frontend", "build")))
+
+// ...
+// Right before your app.listen(), add this:
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+});
+
 app.listen(PORT, () => {
   console.log(
     `Server is running in ${process.env.NODE_ENV} mode on port ${process.env.port}`
