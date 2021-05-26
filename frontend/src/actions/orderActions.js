@@ -20,6 +20,11 @@ import {
   ORDER_DELIVER_SUCCESS,
 } from "../constants/orderConstants";
 
+const API_URL =
+  process.env.REACT_APP_ENVIRONMENT === "development"
+    ? process.env.REACT_APP_API_DEVELOPMENT
+    : process.env.REACT_APP_API_PRODUCTION;
+
 export const createOrder = (order) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_CREATE_REQUEST });
@@ -33,7 +38,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       },
     };
     const response = await axios.post(
-      `https://eshopkullu.herokuapp.com/api/orders/create`,
+      `${API_URL}/api/orders/create`,
       order,
       config
     );
@@ -60,7 +65,7 @@ export const fetchOrderById = (id) => async (dispatch, getState) => {
       },
     };
     const response = await axios.get(
-      `https://eshopkullu.herokuapp.com/api/orders/${id}`,
+      `${API_URL}/api/orders/${id}`,
       config
     );
     const { data } = response;
@@ -86,7 +91,7 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
       },
     };
     const response = await axios.put(
-      `https://eshopkullu.herokuapp.com/api/orders/${id}/pay`,
+      `${API_URL}/api/orders/${id}/pay`,
       paymentResult,
       config
     );
@@ -113,7 +118,7 @@ export const fetchMyOrders = () => async (dispatch, getState) => {
       },
     };
     const response = await axios.get(
-      `https://eshopkullu.herokuapp.com/api/orders/my-orders`,
+      `${API_URL}/api/orders/my-orders`,
       config
     );
     const { data } = response;
@@ -138,7 +143,7 @@ export const fetchAllOrders = () => async (dispatch, getState) => {
       },
     };
     const response = await axios.get(
-      `https://eshopkullu.herokuapp.com/api/orders/all-orders`,
+      `${API_URL}/api/orders/all-orders`,
       config
     );
     const { data } = response;
@@ -164,7 +169,7 @@ export const deliverOrder = (id) => async (dispatch, getState) => {
       },
     };
     const response = await axios.put(
-      `https://eshopkullu.herokuapp.com/api/orders/${id}/deliver`,
+      `${API_URL}/api/orders/${id}/deliver`,
       config
     );
     const { data } = response;

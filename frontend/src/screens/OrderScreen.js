@@ -17,6 +17,11 @@ import {
   ORDER_DELIVER_RESET,
 } from "../constants/orderConstants";
 
+const API_URL =
+  process.env.REACT_APP_ENVIRONMENT === "development"
+    ? process.env.REACT_APP_API_DEVELOPMENT
+    : process.env.REACT_APP_API_PRODUCTION;
+
 const OrderScreen = ({ history, match }) => {
   const dispatch = useDispatch();
 
@@ -40,7 +45,7 @@ const OrderScreen = ({ history, match }) => {
   useEffect(() => {
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get(
-        "https://eshopkullu.herokuapp.com/api/config/paypal"
+        `${API_URL}/api/config/paypal`
       );
       const script = document.createElement("script");
       script.type = "text/javascript";

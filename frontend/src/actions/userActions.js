@@ -26,6 +26,12 @@ import { ORDER_LIST_MY_RESET } from "../constants/orderConstants";
 import { CART_RESET } from "../constants/cartConstants";
 
 import axios from "axios";
+
+const API_URL =
+  process.env.REACT_APP_ENVIRONMENT === "development"
+    ? process.env.REACT_APP_API_DEVELOPMENT
+    : process.env.REACT_APP_API_PRODUCTION;
+
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
@@ -37,7 +43,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const response = await axios.post(
-      "https://eshopkullu.herokuapp.com/api/users/login",
+      `${API_URL}/api/users/login`,
       { email, password },
       config
     );
@@ -73,7 +79,7 @@ export const signup = (name, email, mobileNumber, password) => async (
     };
 
     const response = await axios.post(
-      "https://eshopkullu.herokuapp.com/api/users/signup",
+      `${API_URL}/api/users/signup`,
       { name, email, mobileNumber, password },
       config
     );
@@ -101,7 +107,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     };
 
     const response = await axios.get(
-      `https://eshopkullu.herokuapp.com/api/users/${id}`,
+      `${API_URL}/api/users/${id}`,
       config
     );
     dispatch({ type: USER_DETAILS_SUCCESS, payload: response.data });
@@ -127,7 +133,7 @@ export const updateUserDetails = (user) => async (dispatch, getState) => {
     };
 
     const response = await axios.put(
-      `https://eshopkullu.herokuapp.com/api/users/profile`,
+      `${API_URL}/api/users/profile`,
       user,
       config
     );
@@ -152,7 +158,7 @@ export const getUserList = () => async (dispatch, getState) => {
       },
     };
 
-    const response = await axios.get(`https://eshopkullu.herokuapp.com/api/users`, config);
+    const response = await axios.get(`${API_URL}/api/users`, config);
     dispatch({ type: USER_LIST_SUCCESS, payload: response.data.users });
   } catch (error) {
     dispatch({
@@ -175,7 +181,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     };
 
     const response = await axios.delete(
-      `https://eshopkullu.herokuapp.com/api/users/${id}`,
+      `${API_URL}/api/users/${id}`,
       config
     );
     dispatch({ type: DELETE_USER_SUCCESS });

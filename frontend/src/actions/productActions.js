@@ -23,11 +23,16 @@ import {
 } from "../constants/productConstants";
 import axios from "axios";
 
+const API_URL =
+  process.env.REACT_APP_ENVIRONMENT === "development"
+    ? process.env.REACT_APP_API_DEVELOPMENT
+    : process.env.REACT_APP_API_PRODUCTION;
+
 export const listProducts = (keyword = "") => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     const { data } = await axios.get(
-      `https://eshopkullu.herokuapp.com/api/products?keyword=${keyword}`
+      `${API_URL}/api/products?keyword=${keyword}`
     );
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data.products });
@@ -46,7 +51,7 @@ export const listProductDetail = (productId) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
     const { data } = await axios.get(
-      `https://eshopkullu.herokuapp.com/api/products/${productId}`
+      `${API_URL}/api/products/${productId}`
     );
 
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data.product });
@@ -75,7 +80,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
     };
 
     const response = await axios.delete(
-      `https://eshopkullu.herokuapp.com/api/products/${id}`,
+      `${API_URL}/api/products/${id}`,
       config
     );
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
@@ -100,7 +105,7 @@ export const createProduct = () => async (dispatch, getState) => {
       },
     };
     const response = await axios.post(
-      `https://eshopkullu.herokuapp.com/api/products/create`,
+      `${API_URL}/api/products/create`,
       config
     );
     dispatch({
@@ -128,7 +133,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       },
     };
     const response = await axios.put(
-      `https://eshopkullu.herokuapp.com/api/products/${product._id}`,
+      `${API_URL}/api/products/${product._id}`,
       product,
       config
     );
@@ -160,7 +165,7 @@ export const createProductReview = (productId, review) => async (
       },
     };
     const response = await axios.post(
-      `https://eshopkullu.herokuapp.com/api/products/${productId}/reviews`,
+      `${API_URL}/api/products/${productId}/reviews`,
       review,
       config
     );
@@ -187,7 +192,7 @@ export const getTopProducts = (keyword = "") => async (dispatch,getState) => {
         Authorization: `Bearer ${userInfo.user.token}`,
       },
     };
-    const { data } = await axios.get(`https://eshopkullu.herokuapp.com/api/products/top`,config);
+    const { data } = await axios.get(`${API_URL}/api/products/top`,config);
 
     dispatch({ type: PRODUCT_TOP_SUCCESS, payload: data.products });
   } catch (error) {

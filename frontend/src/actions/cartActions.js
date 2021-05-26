@@ -6,11 +6,14 @@ import {
   CART_SAVE_PAYMENT_METHOD,
 } from "../constants/cartConstants";
 
+const API_URL =
+  process.env.REACT_APP_ENVIRONMENT === "development"
+    ? process.env.REACT_APP_API_DEVELOPMENT
+    : process.env.REACT_APP_API_PRODUCTION;
+
 //redux-thunk allows us to make async call by passing a function
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
-  const { data } = await axios.get(
-    `https://eshopkullu.herokuapp.com/api/products/${productId}`
-  );
+  const { data } = await axios.get(`${API_URL}/api/products/${productId}`);
 
   dispatch({
     type: CART_ADD_ITEM,

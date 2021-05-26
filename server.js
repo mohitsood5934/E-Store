@@ -39,15 +39,18 @@ app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
 
-
 const PORT = process.env.PORT || 5000;
 
-// Step 1:
-app.use(express.static(path.resolve(__dirname, "./frontend/build")));
-// Step 2:
-app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "./frontend/build", "index.html"));
-});
+if (process.env.NODE_ENV !== "development") {
+  // Step 1:
+  app.use(express.static(path.resolve(__dirname, "./frontend/build")));
+  // Step 2:
+  app.get("*", function (request, response) {
+    response.sendFile(
+      path.resolve(__dirname, "./frontend/build", "index.html")
+    );
+  });
+}
 
 app.listen(PORT, () => {
   console.log(

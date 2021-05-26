@@ -8,6 +8,11 @@ import Message from "../components/Message";
 import { listProductDetail, updateProduct } from "../actions/productActions";
 import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
 
+const API_URL =
+  process.env.REACT_APP_ENVIRONMENT === "development"
+    ? process.env.REACT_APP_API_DEVELOPMENT
+    : process.env.REACT_APP_API_PRODUCTION;
+
 const ProductEditScreen = ({ match, history }) => {
   const productId = match.params.id;
 
@@ -85,7 +90,7 @@ const ProductEditScreen = ({ match, history }) => {
       };
 
       const { data } = await axios.post(
-        `https://eshopkullu.herokuapp.com/api/upload/${productId}/image`,
+        `${API_URL}/api/upload/${productId}/image`,
         formData,
         config
       );
