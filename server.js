@@ -32,14 +32,15 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'"], 
-        scriptSrc: ["'self'"],
-        styleSrc: ["'self'"],
-        imgSrc: ["*", 'data:'],
-        connectSrc: ["'self'"],
-        frameSrc: ["'self'"],
+        defaultSrc: ["*"],
+        scriptSrc: [
+          "'self'",
+          "https://www.paypal.com",
+        ],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["*", "data:"],
       },
-    }
+    },
   })
 );
 
