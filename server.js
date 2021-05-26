@@ -40,7 +40,7 @@ app.get("/api/config/paypal", (req, res) => {
 });
 
 
-const PORT = 5000;
+const PORT = process.env.PORT || ${process.env.PORT};
 
 // Step 1:
 app.use(express.static(path.resolve(__dirname, "./frontend/build")));

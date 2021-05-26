@@ -33,7 +33,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       },
     };
     const response = await axios.post(
-      `http://localhost:5000/api/orders/create`,
+      `http://localhost:${process.env.PORT}/api/orders/create`,
       order,
       config
     );
@@ -60,7 +60,7 @@ export const fetchOrderById = (id) => async (dispatch, getState) => {
       },
     };
     const response = await axios.get(
-      `http://localhost:5000/api/orders/${id}`,
+      `http://localhost:${process.env.PORT}/api/orders/${id}`,
       config
     );
     const { data } = response;
@@ -86,7 +86,7 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
       },
     };
     const response = await axios.put(
-      `http://localhost:5000/api/orders/${id}/pay`,
+      `http://localhost:${process.env.PORT}/api/orders/${id}/pay`,
       paymentResult,
       config
     );
@@ -113,7 +113,7 @@ export const fetchMyOrders = () => async (dispatch, getState) => {
       },
     };
     const response = await axios.get(
-      `http://localhost:5000/api/orders/my-orders`,
+      `http://localhost:${process.env.PORT}/api/orders/my-orders`,
       config
     );
     const { data } = response;
@@ -138,7 +138,7 @@ export const fetchAllOrders = () => async (dispatch, getState) => {
       },
     };
     const response = await axios.get(
-      `http://localhost:5000/api/orders/all-orders`,
+      `http://localhost:${process.env.PORT}/api/orders/all-orders`,
       config
     );
     const { data } = response;
@@ -164,7 +164,7 @@ export const deliverOrder = (id) => async (dispatch, getState) => {
       },
     };
     const response = await axios.put(
-      `http://localhost:5000/api/orders/${id}/deliver`,
+      `http://localhost:${process.env.PORT}/api/orders/${id}/deliver`,
       config
     );
     const { data } = response;

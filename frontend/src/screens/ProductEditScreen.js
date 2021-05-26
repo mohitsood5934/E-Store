@@ -85,7 +85,7 @@ const ProductEditScreen = ({ match, history }) => {
       };
 
       const { data } = await axios.post(
-        `http://localhost:5000/api/upload/${productId}/image`,
+        `http://localhost:${process.env.PORT}/api/upload/${productId}/image`,
         formData,
         config
       );

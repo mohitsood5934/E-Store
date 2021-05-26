@@ -27,7 +27,7 @@ export const listProducts = (keyword = "") => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     const { data } = await axios.get(
-      `http://localhost:5000/api/products?keyword=${keyword}`
+      `http://localhost:${process.env.PORT}/api/products?keyword=${keyword}`
     );
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data.products });
@@ -46,7 +46,7 @@ export const listProductDetail = (productId) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
     const { data } = await axios.get(
-      `http://localhost:5000/api/products/${productId}`
+      `http://localhost:${process.env.PORT}/api/products/${productId}`
     );
 
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data.product });
@@ -75,7 +75,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
     };
 
     const response = await axios.delete(
-      `http://localhost:5000/api/products/${id}`,
+      `http://localhost:${process.env.PORT}/api/products/${id}`,
       config
     );
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
@@ -100,7 +100,7 @@ export const createProduct = () => async (dispatch, getState) => {
       },
     };
     const response = await axios.post(
-      `http://localhost:5000/api/products/create`,
+      `http://localhost:${process.env.PORT}/api/products/create`,
       config
     );
     dispatch({
@@ -128,7 +128,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       },
     };
     const response = await axios.put(
-      `http://localhost:5000/api/products/${product._id}`,
+      `http://localhost:${process.env.PORT}/api/products/${product._id}`,
       product,
       config
     );
@@ -160,7 +160,7 @@ export const createProductReview = (productId, review) => async (
       },
     };
     const response = await axios.post(
-      `http://localhost:5000/api/products/${productId}/reviews`,
+      `http://localhost:${process.env.PORT}/api/products/${productId}/reviews`,
       review,
       config
     );
@@ -187,7 +187,7 @@ export const getTopProducts = (keyword = "") => async (dispatch,getState) => {
         Authorization: `Bearer ${userInfo.user.token}`,
       },
     };
-    const { data } = await axios.get(`http://localhost:5000/api/products/top`,config);
+    const { data } = await axios.get(`http://localhost:${process.env.PORT}/api/products/top`,config);
 
     dispatch({ type: PRODUCT_TOP_SUCCESS, payload: data.products });
   } catch (error) {

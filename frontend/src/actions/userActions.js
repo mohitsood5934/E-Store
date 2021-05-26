@@ -37,7 +37,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const response = await axios.post(
-      "http://localhost:5000/api/users/login",
+      "http://localhost:${process.env.PORT}/api/users/login",
       { email, password },
       config
     );
@@ -73,7 +73,7 @@ export const signup = (name, email, mobileNumber, password) => async (
     };
 
     const response = await axios.post(
-      "http://localhost:5000/api/users/signup",
+      "http://localhost:${process.env.PORT}/api/users/signup",
       { name, email, mobileNumber, password },
       config
     );
@@ -101,7 +101,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     };
 
     const response = await axios.get(
-      `http://localhost:5000/api/users/${id}`,
+      `http://localhost:${process.env.PORT}/api/users/${id}`,
       config
     );
     dispatch({ type: USER_DETAILS_SUCCESS, payload: response.data });
@@ -127,7 +127,7 @@ export const updateUserDetails = (user) => async (dispatch, getState) => {
     };
 
     const response = await axios.put(
-      `http://localhost:5000/api/users/profile`,
+      `http://localhost:${process.env.PORT}/api/users/profile`,
       user,
       config
     );
@@ -152,7 +152,7 @@ export const getUserList = () => async (dispatch, getState) => {
       },
     };
 
-    const response = await axios.get(`http://localhost:5000/api/users`, config);
+    const response = await axios.get(`http://localhost:${process.env.PORT}/api/users`, config);
     dispatch({ type: USER_LIST_SUCCESS, payload: response.data.users });
   } catch (error) {
     dispatch({
@@ -175,7 +175,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     };
 
     const response = await axios.delete(
-      `http://localhost:5000/api/users/${id}`,
+      `http://localhost:${process.env.PORT}/api/users/${id}`,
       config
     );
     dispatch({ type: DELETE_USER_SUCCESS });
