@@ -38,13 +38,9 @@ app.use("/api/upload", uploadRoutes);
 app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
-// app.use(express.static(__dirname, 'userUploads'));
-// app.use(express.static(__dirname,'userUploads'))
-// app.use("/userUploads", express.static(path.join(__dirname, "/userUploads")));
+
 
 const PORT = process.env.PORT || 5000;
-// ... other app.use middleware
-// ... other app.use middleware
 
 // Step 1:
 app.use(express.static(path.resolve(__dirname, "./frontend/build")));

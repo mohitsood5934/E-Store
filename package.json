@@ -4,12 +4,12 @@
   "description": "Ecommerce Project",
   "main": "server.js",
   "scripts": {
-    "build": "cd frontend && npm run build",
-    "install-client": "cd frontend && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build",
-    "server": "nodemon server.js",
-    "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix frontend\"",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix frontend\""
+   "start":"node server",
+   "server":"nodemon backend/server",
+   "client":"npm start --prefix frontend",
+   "dev":"concurrently \"npm run server\" \"npm run client\"",
+   "data:import":"node backend/server",
+   "data:destroy":"node backend/server -d"
   },
   "author": "",
   "license": "ISC",
