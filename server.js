@@ -28,7 +28,20 @@ var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
 app.use(morgan("combined", { stream: accessLogStream }));
 
 app.use(cors());
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"], 
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'"],
+        imgSrc: ["*", 'data:'],
+        connectSrc: ["'self'"],
+        frameSrc: ["'self'"],
+      },
+    }
+  })
+);
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
