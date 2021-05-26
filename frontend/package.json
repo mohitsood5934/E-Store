@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.8.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "cross-env": "^7.0.3",
     "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.1",
@@ -20,7 +21,6 @@
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "react-table": "^7.6.3",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
@@ -29,7 +29,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "set INLINE_RUNTIME_CHUNK=false && react-scripts build",
+    "build": "cross-env INLINE_RUNTIME_CHUNK=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -52,7 +52,6 @@
     ]
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "webpack": "^4.44.2"
   },
   "proxy": "http://127.0.0.1:5000"
