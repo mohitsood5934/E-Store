@@ -53,6 +53,5 @@
   },
   "devDependencies": {
     "webpack": "^4.44.2"
-  },
-  "proxy": "http://127.0.0.1:5000"
+  }
 }

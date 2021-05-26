@@ -143,3 +143,4 @@
 ::1 - - [26/May/2021:14:14:52 +0000] "GET /favicon.ico HTTP/1.1" 200 3870 "-" "Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Mobile Safari/537.36"
 ::1 - - [26/May/2021:14:14:52 +0000] "GET /logo192.png HTTP/1.1" 200 5347 "-" "Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Mobile Safari/537.36"
 ::1 - - [26/May/2021:14:14:52 +0000] "GET /api/products?keyword= HTTP/1.1" 200 3479 "-" "Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Mobile Safari/537.36"
+::1 - - [26/May/2021:14:19:55 +0000] "GET /api/products?keyword= HTTP/1.1" 304 - "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
