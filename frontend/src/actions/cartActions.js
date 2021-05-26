@@ -9,7 +9,7 @@ import {
 //redux-thunk allows us to make async call by passing a function
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
   const { data } = await axios.get(
-    `http://localhost:${process.env.PORT}/api/products/${productId}`
+    `https://eshopkullu.herokuapp.com/api/products/${productId}`
   );
 
   dispatch({

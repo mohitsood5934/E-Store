@@ -85,7 +85,7 @@ const ProductEditScreen = ({ match, history }) => {
       };
 
       const { data } = await axios.post(
-        `http://localhost:${process.env.PORT}/api/upload/${productId}/image`,
+        `https://eshopkullu.herokuapp.com/api/upload/${productId}/image`,
         formData,
         config
       );

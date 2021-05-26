@@ -33,7 +33,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       },
     };
     const response = await axios.post(
-      `http://localhost:${process.env.PORT}/api/orders/create`,
+      `https://eshopkullu.herokuapp.com/api/orders/create`,
       order,
       config
     );
@@ -60,7 +60,7 @@ export const fetchOrderById = (id) => async (dispatch, getState) => {
       },
     };
     const response = await axios.get(
-      `http://localhost:${process.env.PORT}/api/orders/${id}`,
+      `https://eshopkullu.herokuapp.com/api/orders/${id}`,
       config
     );
     const { data } = response;
@@ -86,7 +86,7 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
       },
     };
     const response = await axios.put(
-      `http://localhost:${process.env.PORT}/api/orders/${id}/pay`,
+      `https://eshopkullu.herokuapp.com/api/orders/${id}/pay`,
       paymentResult,
       config
     );
@@ -113,7 +113,7 @@ export const fetchMyOrders = () => async (dispatch, getState) => {
       },
     };
     const response = await axios.get(
-      `http://localhost:${process.env.PORT}/api/orders/my-orders`,
+      `https://eshopkullu.herokuapp.com/api/orders/my-orders`,
       config
     );
     const { data } = response;
@@ -138,7 +138,7 @@ export const fetchAllOrders = () => async (dispatch, getState) => {
       },
     };
     const response = await axios.get(
-      `http://localhost:${process.env.PORT}/api/orders/all-orders`,
+      `https://eshopkullu.herokuapp.com/api/orders/all-orders`,
       config
     );
     const { data } = response;
@@ -164,7 +164,7 @@ export const deliverOrder = (id) => async (dispatch, getState) => {
       },
     };
     const response = await axios.put(
-      `http://localhost:${process.env.PORT}/api/orders/${id}/deliver`,
+      `https://eshopkullu.herokuapp.com/api/orders/${id}/deliver`,
       config
     );
     const { data } = response;

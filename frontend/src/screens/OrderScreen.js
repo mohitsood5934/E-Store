@@ -40,7 +40,7 @@ const OrderScreen = ({ history, match }) => {
   useEffect(() => {
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get(
-        "http://localhost:${process.env.PORT}/api/config/paypal"
+        "https://eshopkullu.herokuapp.com/api/config/paypal"
       );
       const script = document.createElement("script");
       script.type = "text/javascript";
